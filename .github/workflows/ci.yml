@@ -8,7 +8,7 @@ on:
       - 'main'
 
 jobs:
-  linting_and_testing:
+  python_linting_and_testing:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
@@ -30,7 +30,15 @@ jobs:
       - name: Analysing the code with pylint
         run: |
           tox -e pylint
+          
+  dockerfile_linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Run Hadolint
         uses: hadolint/hadolint-action@v2.1.0
+        with:
+          failure-threshold: error
 ...
