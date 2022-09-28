@@ -1,0 +1,3 @@
+# AWSRoute53 dependencies
+
+boto3==1.24.69
