@@ -8,10 +8,17 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 FROM base as run
+
 WORKDIR /app
-COPY . /app/
+
+COPY src/ /app/src
+COPY record_cleanup.py /app/
+COPY requirements.txt /app/
+
 RUN python3 -m pip install --no-cache-dir -r requirements.txt && \
     chmod +x /app/record_cleanup.py && \
     useradd -ms /bin/bash ubuntu
+
 USER ubuntu
+
 ENTRYPOINT ["python3", "record_cleanup.py"]
