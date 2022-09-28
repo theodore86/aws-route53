@@ -1,5 +1,5 @@
 ---
-name: Python Linting and Testing
+name: CI/Linting and Testing
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
       - 'main'
 
 jobs:
-  python-testing:
+  linting_and_testing:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
@@ -30,4 +30,7 @@ jobs:
       - name: Analysing the code with pylint
         run: |
           tox -e pylint
+
+      - name: Run Hadolint
+        uses: hadolint/hadolint-action@v2.1.0
 ...
