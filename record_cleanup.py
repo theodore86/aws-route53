@@ -5,13 +5,16 @@ import argparse
 import os
 import sys
 
+from typing import Optional, Sequence
+
 import boto3
 import botocore
 
 import src
 
 
-def _get_cli_args(args=None, description=None):
+def _get_cli_args(args: Optional[Sequence[str]] = None,
+                  description: Optional[str] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=description,
         usage=argparse.SUPPRESS
@@ -65,7 +68,7 @@ def _get_cli_args(args=None, description=None):
     return parser.parse_args(args=args)
 
 
-def main(argv=None):
+def main(argv: Optional[Sequence[str]] = None) -> int:
     logger = src.get_logger(__name__, fmt='[%(levelname)s]: %(message)s')
     try:
         args = _get_cli_args(args=argv, description=__doc__)
