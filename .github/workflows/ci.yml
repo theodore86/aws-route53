@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -27,10 +27,14 @@ jobs:
         run: |
           pip3 install tox==3.26.0
 
-      - name: Analysing the code with pylint
+      - name: Static type checking
+        run: |
+          tox -e mypy
+
+      - name: Static code analysis
         run: |
           tox -e pylint
-          
+
   dockerfile_linting:
     runs-on: ubuntu-latest
     steps:

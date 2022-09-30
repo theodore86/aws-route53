@@ -6,9 +6,19 @@ import re
 import sys
 import os
 import pydoc
+from typing import (
+    Optional,
+    Union,
+    List,
+    Dict,
+    Any
+)
 
 
-def match_resource_records(records, regex=None):
+def match_resource_records(
+    records: List[Dict[str, Any]],
+    regex: Optional[str] = None
+) -> List[Dict[str, Any]]:
     if regex:
         return [
             r
@@ -18,7 +28,7 @@ def match_resource_records(records, regex=None):
     return records
 
 
-def batch(size):
+def batch(size: int) -> int:
     size = int(size)
     if size <= 0:
         raise argparse.ArgumentTypeError(
@@ -27,7 +37,10 @@ def batch(size):
     return size
 
 
-def get_logger(name, level='info', fmt=None):
+def get_logger(
+      name: str, level: str = 'info',
+      fmt: Union[str, None] = None
+    ) -> logging.Logger:
     logger = logging.getLogger(name)
     level = getattr(logging, level.upper(), 10)
     logger.setLevel(level)
@@ -38,7 +51,7 @@ def get_logger(name, level='info', fmt=None):
     return logger
 
 
-def dry_run(records=None):
+def dry_run(records: Optional[List[Dict[str, Any]]] = None) -> None:
     if records is None:
         records = []
     pydoc.pager(
