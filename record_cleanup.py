@@ -46,7 +46,7 @@ def _get_cli_args(args=None, description=None):
     parser.add_argument(
         '--regex',
         dest='regex',
-        default=r'^\w{4}-.+?\.k8s\.testing\.thebeat\.co',
+        default=r'^\w{4}-.+?\.sub\.domain\.co',
         help='Match resource records to delete based on an regex'
     )
     parser.add_argument(
