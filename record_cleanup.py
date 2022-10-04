@@ -5,7 +5,7 @@ import argparse
 import os
 import sys
 
-from typing import Optional, Sequence
+from typing import Optional, List
 
 import boto3
 import botocore
@@ -13,7 +13,7 @@ import botocore
 import src
 
 
-def _get_cli_args(args: Optional[Sequence[str]] = None,
+def _get_cli_args(args: Optional[List[str]] = None,
                   description: Optional[str] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=description,
@@ -68,7 +68,7 @@ def _get_cli_args(args: Optional[Sequence[str]] = None,
     return parser.parse_args(args=args)
 
 
-def main(argv: Optional[Sequence[str]] = None) -> int:
+def main(argv: Optional[List[str]] = None) -> int:
     logger = src.get_logger(__name__, fmt='[%(levelname)s]: %(message)s')
     try:
         args = _get_cli_args(args=argv, description=__doc__)
