@@ -60,6 +60,7 @@ class AWSRoute53:
     def _get_hosted_zone_id(self: R, zone_name: str) -> str:
         if not zone_name.endswith('.'):
             zone_name += '.'
+        self._verify_session()
         response = self._client.list_hosted_zones()
         for zone in response['HostedZones']:
             if zone_name == zone['Name']:
@@ -68,11 +69,9 @@ class AWSRoute53:
             f"'{zone_name}' zone does not exist"
         )
 
-    def delete_resource_records_sets(
-        self: R, zone_name: str,
-        records: Optional[List[Dict[str, Any]]]=None,
-        batch_size: int =100
-    ) -> None:
+    def delete_resource_records_sets(self: R, zone_name: str,
+                                     records: Optional[List[Dict[str, Any]]]=None,
+                                     batch_size: int =100) -> None:
         if records is None:
             records = []
         zone_id = self._get_hosted_zone_id(zone_name)
@@ -92,11 +91,9 @@ class AWSRoute53:
             self.logger.info(response)
             self._wait_for_resource_record_change(response)
 
-    def get_resource_records_sets(
-        self: R, zone_name: str, record_name: str ='*',
-        record_type: str ='A',
-        max_items: Union[int, str] = '5000'
-    ) -> List[Dict[str, Any]]:
+    def get_resource_records_sets(self: R, zone_name: str, record_name: str ='*',
+                                  record_type: str ='A',
+                                  max_items: Union[int, str] = '5000') -> List[Dict[str, Any]]:
         records = []
         zone_id = self._get_hosted_zone_id(zone_name)
         while True:
@@ -118,10 +115,8 @@ class AWSRoute53:
                     break
         return records
 
-    def _wait_for_resource_record_change(
-            self, result: Dict[str, Any],
-            delay: int = 10, max_attempts: int = 30
-    ) -> None:
+    def _wait_for_resource_record_change(self, result: Dict[str, Any],
+                                         delay: int = 10, max_attempts: int = 30) -> None:
         request_id = result["ChangeInfo"]["Id"]
         self._rr_changed_waiter.wait(
             Id=request_id,
@@ -131,7 +126,8 @@ class AWSRoute53:
             }
         )
 
-    def _resource_record_exists(self: R, zone_name: str, record_name: str) -> bool:
+    def _resource_record_exists(self: R, zone_name: str,
+                                record_name: str) -> bool:
         zone_id = self._get_hosted_zone_id(zone_name)
         response = self._client.list_resource_record_sets(
             HostedZoneId=zone_id,
@@ -140,6 +136,12 @@ class AWSRoute53:
         )
         record = response['ResourceRecordSets'][0]
         return record['Name'] == record_name
+
+    def _verify_session(self: R) -> None:
+        if self._client is None:
+            raise RuntimeError(
+                "Required to 'connect' to the service"
+            )
 
     def close(self: R) -> None:
         if self._client is not None:
