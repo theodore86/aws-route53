@@ -30,7 +30,7 @@ def _get_cli_args(args: Optional[List[str]] = None,
         '--aws-secret-access-key',
         dest='access_key',
         default=os.getenv('AWS_SECRET_ACCESS_KEY'),
-        required=not os.getenv('AWS_SESSION_TOKEN'),
+        required=not os.getenv('AWS_SECRET_ACCESS_KEY'),
         help='AWS secret access key'
     )
     parser.add_argument(
