@@ -33,7 +33,7 @@ jobs:
           echo "::set-output name=short_sha::$short_sha"
       
       - name: 'Build and push docker image'
-        uses: 'docker/build-push-action@v3.0.0'
+        uses: 'docker/build-push-action@v3.1.1'
         with:
           push: true
           context: .
