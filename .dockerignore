@@ -1,7 +1,0 @@
-# Ignore everything
-*
-
-# Allow
-!record_cleanup.py
-!src
-!requirements.txt
