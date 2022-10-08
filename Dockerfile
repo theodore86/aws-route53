@@ -10,7 +10,7 @@ RUN apt-get update && \
 WORKDIR /app
 
 COPY src/ ./src
-COPY record_cleanup.py requirements.txt .
+COPY record_cleanup.py requirements.txt ./
 
 RUN python3 -m pip install --no-cache-dir -r requirements.txt && \
     chmod +x /app/record_cleanup.py && \
