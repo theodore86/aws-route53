@@ -4,7 +4,10 @@ name: CI/Linting and Testing
 on:
   pull_request:
     branches:
-      - 'main'
+      - main
+  push:
+    branches:
+      - main
 
 jobs:
   python_linting_and_testing:
