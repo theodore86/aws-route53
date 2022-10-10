@@ -1,13 +1,9 @@
 name: Build and Publish
 
 on:
-  workflow_run:
-    workflows:
-      - 'CI/Linting and Testing'
+  push:
     branches:
       - 'main'
-    types:
-      - 'completed'
     paths:
       - 'Dockerfile'
       - '**.py'
@@ -16,7 +12,6 @@ on:
 
 jobs:
   build_and_publish_docker_image:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     env:
       DOCKERHUB_REPO: 'theodore86/aws-route53'
