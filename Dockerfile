@@ -1,4 +1,4 @@
-FROM python:3.9-slim AS build
+FROM python:3.10.7-slim AS build
 
 RUN python3 -m venv /opt/venv
 
@@ -15,7 +15,7 @@ RUN python3 -m pip install \
       --no-cache-dir \
       -r requirements.txt
 
-FROM python:3.9-slim AS run
+FROM python:3.10.7-slim AS run
 
 COPY --from=build-env /opt/venv /opt/venv
 
