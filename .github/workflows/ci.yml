@@ -1,6 +1,5 @@
 ---
-name: CI/Linting and Testing
-
+name: CI/Linting,Testing And Building artifacts
 on:
   pull_request:
     branches:
