@@ -1,69 +1,28 @@
 ---
-name: CI/Linting,Testing And Building artifacts
+name: CI/Linting, Testing, Building Artifacts
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'Dockerfile'
-      - '**.py'
-      - 'requirements.txt'
-      - '.github/workflows/ci.yml'
   push:
     branches:
-      - main
+      - 'main'
     paths:
       - 'Dockerfile'
       - '**.py'
       - 'requirements.txt'
       - '.github/workflows/ci.yml'
 
+concurrency:
+  group: ${{ github.workflow }}
+
 env:
-  TOX_VERSION: '3.26.0'
   DOCKERHUB_REPO: 'theodore86/aws-route53'
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+  
 jobs:
-  python_linting_and_testing:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3.1.0
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4.3.0
-        with:
-          python-version: ${{ matrix.python-version }}
-      
-      - name: Install tox automation tool
-        run: |
-          pip3 install tox==${{ env.TOX_VERSION }}
-
-      - name: Static type checking
-        run: |
-          tox -e mypy
-
-      - name: Static code analysis
-        run: |
-          tox -e pylint
-
-  dockerfile_linting:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3.1.0
-
-      - name: Run Hadolint
-        uses: hadolint/hadolint-action@v2.1.0
-        with:
-          failure-threshold: error
-
+  linting_and_testing:
+    uses: ./.github/workflows/linting-and-testing.yml
   build_and_publish_docker_image:
-    needs: ['dockerfile_linting', 'python_linting_and_testing']
+    needs: ['linting_and_testing']
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout SCM'
