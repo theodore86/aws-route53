@@ -1,0 +1,23 @@
+---
+name: Linting And Testing
+
+on:
+  workflow_call:
+  pull_request:
+    ignore-paths:
+      - 'Dockerfile'
+      - '**.py'
+      - 'requirements.txt'
+      - '.github/workflows/ci.yml'
+
+jobs:
+  python_linting_and_testing:
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No build required" '
+
+  dockerfile_linting:
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No build required" '
+...
