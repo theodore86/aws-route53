@@ -8,7 +8,7 @@ on:
       - 'Dockerfile'
       - '**.py'
       - 'requirements.txt'
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/build-and-publish.yml'
 
 concurrency:
   group: ${{ github.workflow }}

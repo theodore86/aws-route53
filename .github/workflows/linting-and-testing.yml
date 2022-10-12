@@ -8,7 +8,7 @@ on:
       - 'Dockerfile'
       - '**.py'
       - 'requirements.txt'
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/linting-and-testing.yml'
 
 env:
   TOX_VERSION: '3.26.0'
