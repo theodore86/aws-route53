@@ -11,7 +11,7 @@ Delete/Cleanup [resource records sets](https://docs.aws.amazon.com/Route53/lates
 ## Usage:
 
 #### Copy the AWS credentials
-You can get the credentials from:  
+You can get the credentials from:
 ``AWS management console -> Command line or programmatic access``
 
 #### Export the AWS credentials
@@ -36,8 +36,8 @@ python3 record_cleanup.py --regex '.*record.*' --aws-hosted-zone myzone.test.co
 
 #### Delete the AWS Route53 resource records using ``Docker`` (recommended):
 ```bash
-docker build -t aws_route53_cleaup:latest .
-docker run --rm -it aws_route53_cleanup:latest \
-  -e AWS_ACCESS_KEY_ID=<value> -e AWS_SECRET_ACCESS_KEY=<value> -e AWS_SESSION_TOKEN=<value> \
-  --regex '.*pattern.*' --aws-hosted-zone <name>
+docker build -t aws_route53_cleanup:latest . && \
+docker run --rm -it -e AWS_ACCESS_KEY_ID="<value>" -e AWS_SECRET_ACCESS_KEY="<value>" \
+  -e AWS_SESSION_TOKEN="<value>" aws_route53_cleanup:latest \
+  --regex '.*pattern.*' --aws-hosted-zone "<name>"
 ```

@@ -1,0 +1,28 @@
+---
+name: Linting And Testing
+
+on:
+  workflow_call:
+  pull_request:
+    ignore-paths:
+      - 'Dockerfile'
+      - '**.py'
+      - 'requirements.txt'
+      - '.github/workflows/linting-and-testing.yml'
+      - 'tox.ini'
+
+jobs:
+  python_linting_and_testing:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
+    steps:
+      - run: 'echo "No build required" '
+
+  dockerfile_linting:
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No build required" '
+...
