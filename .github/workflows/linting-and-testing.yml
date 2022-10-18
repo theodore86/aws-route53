@@ -9,6 +9,7 @@ on:
       - '**.py'
       - 'requirements.txt'
       - '.github/workflows/linting-and-testing.yml'
+      - 'tox.ini'
 
 env:
   TOX_VERSION: '3.26.0'
@@ -33,13 +34,9 @@ jobs:
         run: |
           pip3 install tox==${{ env.TOX_VERSION }}
 
-      - name: Static type checking
+      - name: Static code analysis (type checking, linting...)
         run: |
-          tox -e mypy
-
-      - name: Static code analysis
-        run: |
-          tox -e pylint
+          tox -e pylint,mypy -p
 
   dockerfile_linting:
     runs-on: ubuntu-latest
