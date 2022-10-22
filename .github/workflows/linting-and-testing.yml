@@ -35,8 +35,7 @@ jobs:
           pip3 install tox==${{ env.TOX_VERSION }}
 
       - name: Static code analysis (type checking, linting...)
-        run: |
-          tox -e pylint,mypy -p
+        run: tox
 
   dockerfile_linting:
     runs-on: ubuntu-latest
