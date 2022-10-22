@@ -1,18 +1,20 @@
+# syntax = docker/dockerfile:1.3
 FROM python:3.11.0rc2-slim AS build
 
 RUN python3 -m venv /opt/venv
 
 ENV PATH="/opt/venv/bin:$PATH"
 
-# Re-execute this step only if dependencies changes
+# Requirements in separate stage
 FROM build as build-env
 
 COPY requirements.txt ./
 
-RUN python3 -m pip install \
+# Buildkits caching
+RUN --mount=type=cache,target=/root/.cache/ \
+      python3 -m pip install \
       --no-compile \
       --disable-pip-version-check \
-      --no-cache-dir \
       -r requirements.txt
 
 FROM python:3.11.0rc2-slim AS run
