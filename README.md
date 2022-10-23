@@ -1,6 +1,6 @@
 [![Linting](https://github.com/theodore86/aws-route53/actions/workflows/build-and-publish.yml/badge.svg)](https://github.com/theodore86/aws-route53/actions/workflows/build-and-publish.yml)
 
-# AWS Route53 SDK
+# AWS (DNS) Route53 RRSets Cleanup
 Delete/Cleanup [resource records sets](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/rrsets-working-with.html) from the selected hosted zone of the AWS Route53.
 
 ## Features:
