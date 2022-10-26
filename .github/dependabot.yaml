@@ -9,8 +9,34 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - 'enhancement'
+      - 'dependabot'
+      - 'docker'
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - 'enhancement'
+      - 'dependabot'
+      - 'ghaction'
+
+  - package-ecosystem: 'pip'
+    directory: '/requirements.d'
+    schedule:
+     interval: 'daily'
+    labels:
+      - 'enhancement'
+      - 'dependabot'
+      - 'python'
+
+  - package-ecosystem: 'pip'
+    directory: '/'
+    schedule:
+     interval: 'daily'
+    labels:
+      - 'enhancement'
+      - 'dependabot'
+      - 'python'
