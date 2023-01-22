@@ -8,7 +8,9 @@ ENV PATH="/opt/venv/bin:$PATH"
 # Requirements in separate stage
 FROM build as build-env
 
-COPY requirements.txt ./
+WORKDIR /
+
+COPY ./requirements.txt ./
 
 # Buildkits caching
 RUN --mount=type=cache,target=/root/.cache/ \

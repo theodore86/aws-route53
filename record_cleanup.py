@@ -37,7 +37,7 @@ def _get_cli_args(args: Optional[List[str]] = None,
         '--aws-session-token',
         dest='session_token',
         default=os.getenv('AWS_SESSION_TOKEN'),
-        help='AWS session token, MFA'
+        help='AWS session token (Multi-Factor-Authentication)'
     )
     parser.add_argument(
         '--aws-hosted-zone',
