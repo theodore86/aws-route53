@@ -109,10 +109,9 @@ class AWSRoute53:
                 record_type = response['NextRecordType']
             except KeyError:
                 return records
-            else:
-                max_items = int(int(max_items) - 300)
-                if max_items <= 0:
-                    break
+            max_items = int(int(max_items) - 300)
+            if max_items <= 0:
+                break
         return records
 
     def _wait_for_resource_record_change(self, result: Dict[str, Any],
